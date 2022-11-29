@@ -1,0 +1,112 @@
+import random
+
+class Kumanda():
+
+    def __init__(self, tv_situation = "Kapalı", tv_voice = 0, kanal_list =["trt"], kanal = "trt"):
+        self.tv_situation = tv_situation
+        self.tv_voice = tv_voice
+        self.kanal_list = kanal_list
+        self.kanal = kanal
+
+    def voice_regulation(self):
+        input_voice = input("Arttırmak için > ,azaltmak için < ya basın. Tamam ise q")
+
+        while True:
+
+            if (input_voice == ">"):
+                if (self.tv_voice >= 0):
+                    self.tv_voice += 1
+                    print("Ses: ", self.tv_voice)
+                    break
+            elif (input_voice == "<"):
+                if (self.tv_voice != 20):
+                    self.tv_voice -= 1
+                    print("Ses: ", self.tv_voice)
+                    break
+            else:
+                if(input_voice == "q"):
+                    print("Güncel ses: ", self.tv_voice)
+                    break
+
+    def close_or_open(self):
+        input_situation = input ("Açmak istiyorsanız O ya Kapatmak istiyorsanız C ye basınız." )
+
+        while True:
+
+            if(input_situation == "C"):
+                if(self.tv_situation == "Açık"):
+                    print("Kapatılıyor...")
+                    self.tv_situation = "Kapalı"
+
+            elif(input_situation == "O"):
+                if(self.tv_situation == "Kapalı"):
+                    print("Açılıyor...")
+                    self.tv_situation = "Açık"
+            break
+                
+            
+
+    def show(self):
+        return "Tv durumu: {}\n, Ses: {}\n, Kanallar: {}\n, Şu anki kanal: {}\n".format(self.tv_situation,self.tv_voice,self.kanal_list, self.kanal)
+
+    def show_len(self):
+        return len(self.kanal_list)
+    
+    def random_kanal(self):
+        randomm = random.randint(0, len(self.kanal_list)-1)
+        self.kanal = self.kanal_list[randomm]
+        print("Şu anki kanal: ", self.kanal)
+    def kanal_append(self):
+        new_kanal = input("Ekleyeceğiniz kanalı giriniz: ")
+        self.kanal = new_kanal
+        self.kanal_list.append(self.kanal)
+        print("Kanal eklendi: ", new_kanal)
+
+kumanda = Kumanda()
+
+print("""*******************
+
+Televizyon Uygulaması
+
+İşlemler ;
+
+1. Televizyonu Aç
+
+2. Televizyonu Kapat
+
+3. Televizyon Bilgileri
+
+4. Kanal Sayısını Öğrenme
+
+5. Kanal Ekle
+
+6. Rastgele Kanal'a Geç
+
+7. Sesi Azalt Ya da Artır
+Çıkmak için 'q' ya basın.
+*******************""")
+
+while True:
+
+    işlem= input("İşlemi seçiniz : ")
+   
+
+    if(işlem== "q"):
+        print("Programdan çıkılıyor...")
+        break
+    elif(işlem== "1"):
+        kumanda.close_or_open()
+    elif(işlem== "2"):
+        kumanda.close_or_open()
+    elif(işlem== "3"):
+        print(kumanda.show())
+    elif(işlem== "4"):
+        print(kumanda.show_len())
+    elif(işlem== "5"):
+        kumanda.kanal_append()
+    elif(işlem== "6"):
+        kumanda.random_kanal()
+    elif(işlem== "7"):
+        kumanda.voice_regulation()
+    else:
+        print("Geçersiz islem.")
